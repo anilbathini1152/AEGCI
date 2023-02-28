@@ -1,0 +1,19 @@
+<div class="container">
+    
+    <form #formRef="ngForm" class="m-3" (ngSubmit)="onSubmit(formRef)" class="form">
+        <h1 class="text-center">Login Here</h1>
+        <div class="form-floating mb-3">
+            <label for="username">UserName</label>
+            <input type="text" class="form-control" name="username" placeholder="username" ngModel>
+        </div>
+        <div class="form-floating mb-3">
+            <label for="pwd">Password</label>
+            <input type="text" class="form-control" name="pwd" placeholder="password" ngModel>
+        </div>
+        <div>
+            <p  style="color: blue;margin-top: 10px;">Forgot Password..?</p>
+        </div>
+
+        <button type="submit" class="btn btn-success d-block mx-auto">Submit</button>
+    </form>
+</div>
