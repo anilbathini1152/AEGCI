@@ -1,36 +1,23 @@
 
 const exp=require("express");
 const { moveCursor } = require("readline");
-const app=exp();
-const mc=require("mongodb").MongoClient;
-const dburl="mongodb+srv://anilbathini1152:Anil@1234@cluster0.5nbdt1f.mongodb.net/?retryWrites=true&w=majority"
-
 const path=require("path")
-app.use( exp.static(path.join(__dirname,"dist/tour-of-heroes")))
-let dbobj;
+const mc=require("mongodb").MongoClient;
+const verifyToken=require("./middlewares/tokenVerification")
 
-// Using Callbacks
-// mc.connect(dburl,{useNewUrlParser:true,useUnifiedTopology:true},(err,cli)=>{
-//     if(err){
-//         console.log("error connecting ot db",err);
-//     }
-//     else{
-//         dbobj=cli.db("TourOfHeroes")
-//         app.locals.databaseObj=dbobj;
-//         console.log("Succcessfully connected to db")
-//     }
-// })
+const app=exp();
+const dburl="mongodb://localhost:27017";
 
+app.use( exp.static(path.join(__dirname,"dist/aegci")))
 
 mc.connect(dburl,{useNewUrlParser:true,useUnifiedTopology:true}).
 then((cli)=>{
-    // dbobj=cli.db("TourOfHeroes")
-    // app.locals.databaseheroesObj=dbobj.collection("heroes");
-    // app.locals.databaseusersObj=dbobj.collection("users");
+    app.locals.databaseusersObj=cli.db("AEGCI")
     console.log("Succcessfully connected to db")
 }).catch((err)=>{
-    console.log("Error Occured",err)
+    console.log("Error Occured",err) 
 })
+
 
 
 
@@ -38,6 +25,10 @@ then((cli)=>{
 
 const userApiRoute=require("./apis/UserApi");
 app.use("",userApiRoute);
+
+app.use((err,req,res,next)=>{
+    res.send({message:"Error Occured",reason:err.message})
+})
 
 const port=5000;
 app.listen(port,()=>{

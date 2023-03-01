@@ -9,6 +9,8 @@ import { NavComponent } from './components/nav/nav.component';
 import {MatSliderModule} from '@angular/material/slider'
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthorizationInterceptorService } from './services/authorization-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -24,8 +26,13 @@ import {MatInputModule} from '@angular/material/input';
     MatSliderModule,
     MatCardModule,
     MatInputModule,
-  ],
-  providers: [],
+    HttpClientModule,
+  ], 
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass:AuthorizationInterceptorService,
+    multi:true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
