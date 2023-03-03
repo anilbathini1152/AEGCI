@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">AEGCI</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-style">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" routerLink="/admin">Home</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/admin/users">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/admin/events">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/admin/issues">Issues</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" (click)="logout()">logout</a>
+                    </li> -->
+                </ul>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="position: absolute;
+                right: 0px;">
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" (click)="logout()">logout</a>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer;">
+                        <button mat-icon-button >
+                            <mat-icon style="color: white;">account_circle</mat-icon>
+                          </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <router-outlet></router-outlet>
+</div>

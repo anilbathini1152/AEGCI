@@ -1,11 +1,12 @@
 const exp = require("express");
 const bcrypt=require("bcrypt");
 const jwt=require("jsonwebtoken");
-const userApiRoute = exp.Router();
-userApiRoute.use(exp.json())
+const sharedApiRoute = exp.Router();
+sharedApiRoute.use(exp.json())
 
 
-userApiRoute.post("/login", async (req, res,next) => {
+
+sharedApiRoute.post("/login", async (req, res,next) => {
     try{
         let dbobj = req.app.locals.databaseusersObj.collection('users');
         data = await dbobj.findOne({ username: req.body.username })
@@ -19,10 +20,10 @@ userApiRoute.post("/login", async (req, res,next) => {
             if(result==true){
                 let signedtoken=await jwt.sign({username:req.body.username},"abcd",{expiresIn:"2h"})
     
-                res.send({message:"User login Successfull",jwt:signedtoken,userObj:data})
+                res.send({message:"User login Successfull",jwt:signedtoken,userObj:data,success:true,code:202})
             }
             else{
-                res.send({message:"Enter correct username and password"})
+                res.send({message:"Enter correct username and password",code:404,success:false})
             }
         }
     }
@@ -31,7 +32,7 @@ userApiRoute.post("/login", async (req, res,next) => {
     }
 })
 
-userApiRoute.post("/register", async(req, res,next) => {
+sharedApiRoute.post("/register", async(req, res,next) => {
     try{
         let dbobj = req.app.locals.databaseusersObj;
         io=req.body;
@@ -43,7 +44,7 @@ userApiRoute.post("/register", async(req, res,next) => {
             console.log(req.body.password)
             req.body.password=await bcrypt.hash(req.body.password,5);
             data=await dbobj.collection('users').insertOne(req.body);
-            res.send({ message: "User Registration successfull" });
+            res.send({ message: "User Registration successfull",code:202,success:true});
         }
     }
     catch(err){
@@ -52,4 +53,4 @@ userApiRoute.post("/register", async(req, res,next) => {
 })
 
 
-module.exports = userApiRoute;
+module.exports = sharedApiRoute;

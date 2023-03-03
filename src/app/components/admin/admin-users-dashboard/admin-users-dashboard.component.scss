@@ -1,0 +1,13 @@
+.nav-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center ;
+    height: 8vh;
+    padding-right: 5px;
+}
+
+.users-list {
+    display: flex;
+    height: 86vh;
+}

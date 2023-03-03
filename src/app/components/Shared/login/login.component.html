@@ -1,0 +1,19 @@
+<div class="main-container">
+    
+    <form #formRef="ngForm" class="m-3" class="form">
+        <h3 class="text-center">Login Here</h3>
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>UserName</mat-label>
+            <input matInput placeholder="" [(ngModel)]="data.username" required>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>UserName</mat-label>
+            <input  matInput placeholder=""  [(ngModel)]="data.password" required>
+        </mat-form-field>
+        <div>
+            <p  style="color: blue;">Forgot Password..?</p>
+        </div>
+
+        <button type="submit" class="btn btn-success d-block mx-auto" (click)="onSubmit()">Submits</button>
+    </form>
+</div>

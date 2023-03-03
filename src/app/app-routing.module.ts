@@ -1,12 +1,36 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/Shared/login/login.component';
 import { NavComponent } from './components/nav/nav.component';
+import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
+import { AuthorityDashboardComponent } from './components/authority/authority-dashboard/authority-dashboard.component';
+import { StudnetDashboardComponent } from './components/student/studnet-dashboard/studnet-dashboard.component';
+import { AdminUsersDashboardComponent } from './components/admin/admin-users-dashboard/admin-users-dashboard.component';
+import { AdminEventsDashboardComponent } from './components/admin/admin-events-dashboard/admin-events-dashboard.component';
+import { AdminIssuesDashboardComponent } from './components/admin/admin-issues-dashboard/admin-issues-dashboard.component';
 
 const routes: Routes = [
-  {path:"login",component:LoginComponent},
-  {path:'dashboard',component:NavComponent},
-  {path:"**",redirectTo:"login"}
+  { path: "login", component: LoginComponent },
+  {
+    path: 'admin',
+    component: AdminDashboardComponent,
+    children: [
+      { path: 'users', component: AdminUsersDashboardComponent },
+      { path: 'events', component: AdminEventsDashboardComponent },
+      { path: 'issues', component: AdminIssuesDashboardComponent }
+    ]
+  },
+  {
+    path: 'authority'
+    , component: AuthorityDashboardComponent,
+    children: []
+  },
+  {
+    path: 'student',
+    component: StudnetDashboardComponent,
+    children: []
+  },
+  { path: "**", redirectTo: "login" }
 ];
 
 @NgModule({
