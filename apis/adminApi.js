@@ -14,5 +14,25 @@ adminApiRoute.get("/users",verifyToken, async(req, res,next) => {
     }
 })
 
+adminApiRoute.post("/add-user", async(req, res,next) => {
+    try{
+        let dbobj = req.app.locals.databaseusersObj;
+        io=req.body;
+        data=await dbobj.collection('users').findOne({ username: req.body.username });
+        if (data !== null) {
+            res.send({ message: "User already exists..." })
+        }
+        else {
+            console.log(req.body.password)
+            req.body.password=await bcrypt.hash(req.body.password,5);
+            data=await dbobj.collection('users').insertOne(req.body);
+            res.send({ message: "User Registration successfull",code:202,success:true});
+        }
+    }
+    catch(err){
+        next(err);
+    }
+})
+
 
 module.exports=adminApiRoute;

@@ -5,9 +5,55 @@
     align-items: center ;
     height: 8vh;
     padding-right: 5px;
+    background-color: #e3f2fd;
 }
 
 .users-list {
     display: flex;
     height: 86vh;
+
+    .user-table{
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid black;
+        height: max-content;
+
+        th{
+            background-color: #edf3e5;
+            border:1px solid black;
+            text-align: center;
+        }
+        td{
+            border:1px solid black;
+            text-align: center;
+        }
+        tr{
+            height: 60px;
+            &:hover{
+                td{
+                    background-color: #F2F2F2;
+                    .icon{
+                        visibility: visible;
+                    }
+                }
+            }
+        }
+        .icon{
+            visibility: hidden;
+        }
+        .sno{
+            width:5%;
+        }
+        .username{
+            width:30%;
+        }
+        .name{
+            width: 30%;
+        }
+        .role{
+            width:35%;
+        }
+
+    }
+
 }

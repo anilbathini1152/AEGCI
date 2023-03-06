@@ -4,7 +4,14 @@ const jwt=require("jsonwebtoken");
 const sharedApiRoute = exp.Router();
 sharedApiRoute.use(exp.json())
 
-
+// sharedApiRoute.get("/authenticate"),(req,res,next)=>{
+//     try{
+//         res.send({message:"Authenticated Successfull",success:true,code:200})
+//     }
+//     catch(err){
+//         next(err)
+//     }
+// }
 
 sharedApiRoute.post("/login", async (req, res,next) => {
     try{

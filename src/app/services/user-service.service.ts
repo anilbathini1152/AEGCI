@@ -15,6 +15,14 @@ export class UserServiceService {
     private router: Router,
     ) { }
 
+  authenticate():any{
+    let userObj=localStorage.getItem('user');
+    if(!userObj){
+      this.router.navigate(['/login'])
+    }
+
+  }
+
   register(body:any):Observable<any>{
     return this.http.post("/register",body);
   }

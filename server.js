@@ -4,7 +4,6 @@ const { moveCursor } = require("readline");
 const path=require("path")
 const mc=require("mongodb").MongoClient;
 const verifyToken=require("./middlewares/tokenVerification")
-
 const app=exp();
 const dburl="mongodb://localhost:27017";
 const proxy=require('express-http-proxy')
@@ -37,8 +36,6 @@ app.use('/*',proxy('http://localhost:'+port+'/*'))
 app.use((err,req,res,next)=>{
     res.send({message:"Error Occured",reason:err.message,code:404,success:false})
 })
-
-
 
 app.listen(port,()=>{
     console.log(`server listening on ${port}`);
