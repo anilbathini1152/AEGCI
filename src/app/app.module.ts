@@ -23,8 +23,7 @@ import { ErrorInterceptorService } from './services/error-interceptor.service';
 import { ToastrModule } from 'ngx-toastr';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
-
-
+import {MatSelectModule} from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +41,7 @@ import { MatRadioModule } from '@angular/material/radio';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    MatSelectModule,
     MatFormFieldModule,
     MatSliderModule,
     MatCardModule,

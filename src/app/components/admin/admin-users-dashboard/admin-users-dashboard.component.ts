@@ -13,6 +13,12 @@ export class AdminUsersDashboardComponent implements OnInit {
 
 
   public dialogRef!:any ;
+  roles=[
+    {name:"admin"},
+    {name:'authority'},
+    {name:'student'}
+  ]
+
 
   constructor(
     public dialog: MatDialog,
@@ -50,6 +56,7 @@ export class AdminUsersDashboardComponent implements OnInit {
   }
 
   createUser(user:any){
+    console.log(user)
     const data=user
     this.adminService.addUser(data).subscribe(res=>{
       if(res.success){

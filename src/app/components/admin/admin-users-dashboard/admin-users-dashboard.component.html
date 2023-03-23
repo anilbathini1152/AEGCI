@@ -80,10 +80,14 @@
                         <mat-label>UserName</mat-label>
                         <input matInput placeholder="" [(ngModel)]="userTemplate.userName" required>
                     </mat-form-field>
-                    <mat-form-field class="example-full-width" appearance="outline">
-                        <mat-label>Role</mat-label>
-                        <input matInput placeholder="" [(ngModel)]="userTemplate.role" required>
-                    </mat-form-field> 
+                    <mat-form-field appearance="fill">
+                        <mat-label>Select Role</mat-label>
+                        <select matNativeControl [(ngModel)]="userTemplate.role" name="food">
+                          <option *ngFor="let role of roles" [value]="role.name">
+                            {{role.name}}
+                          </option>
+                        </select>
+                      </mat-form-field>
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Mobile No</mat-label>
                         <input matInput placeholder="" type="number" [(ngModel)]="userTemplate.mobileNo" required>
@@ -137,9 +141,13 @@
                         <mat-label>UserName</mat-label>
                         <input matInput placeholder="" [(ngModel)]="userTemplate.userName" required>
                     </mat-form-field>
-                    <mat-form-field class="example-full-width" appearance="outline">
-                        <mat-label>Role</mat-label>
-                        <input matInput placeholder="" [(ngModel)]="userTemplate.role" required>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Select Role</mat-label>
+                        <select matNativeControl [(ngModel)]="userTemplate.role" name="food">
+                          <option *ngFor="let role of roles" [value]="role.name">
+                            {{role.name}}
+                          </option>
+                        </select>
                     </mat-form-field> 
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Mobile No</mat-label>
