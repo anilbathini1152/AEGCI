@@ -20,6 +20,9 @@ import { AdminUsersDashboardComponent } from './components/admin/admin-users-das
 import { AdminEventsDashboardComponent } from './components/admin/admin-events-dashboard/admin-events-dashboard.component';
 import { AdminIssuesDashboardComponent } from './components/admin/admin-issues-dashboard/admin-issues-dashboard.component';
 import { ErrorInterceptorService } from './services/error-interceptor.service';
+import { ToastrModule } from 'ngx-toastr';
+import {MatDialogModule} from '@angular/material/dialog';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 @NgModule({
@@ -32,7 +35,8 @@ import { ErrorInterceptorService } from './services/error-interceptor.service';
     StudnetDashboardComponent,
     AdminUsersDashboardComponent,
     AdminEventsDashboardComponent,
-    AdminIssuesDashboardComponent
+    AdminIssuesDashboardComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -45,6 +49,13 @@ import { ErrorInterceptorService } from './services/error-interceptor.service';
     HttpClientModule,
     MatButtonModule,
     MatIconModule,
+    MatDialogModule,
+    ToastrModule.forRoot({
+      maxOpened: 3,
+      autoDismiss: true,
+      closeButton: false
+    }),
+    MatRadioModule,
   ], 
   providers: [{
     provide: HTTP_INTERCEPTORS,

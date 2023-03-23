@@ -15,8 +15,22 @@ export class AdminServiceService {
     private http: HttpClient,
   ) { }
 
+  //Users
+
   addUser(data:{}):Observable<any>{
     return this.http.post(this.basePath+"/add-user",data);
+  }
+
+  getUsers():Observable<any>{
+    return this.http.get(this.basePath+"/users");
+  }
+
+  updateUser(data:{}):Observable<any>{
+    return this.http.put(this.basePath+"/updateuser",data)
+  }
+
+  deleteUser(params:any):Observable<any>{
+    return this.http.delete(this.basePath+"/deleteuser",{params:params})
   }
 
 } 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UserServiceService } from 'src/app/services/user-service.service';
 
 @Component({
@@ -16,28 +17,40 @@ export class LoginComponent implements OnInit {
   constructor(
     private userService:UserServiceService,
     private router:Router,
+    private toastService: ToastrService,
+
   ) { }
 
   ngOnInit(): void {
+    this.toastService.info("Hello login here")
   }
   
   onSubmit():void{
     console.log(this.data)
     this.userService.login(this.data).subscribe(
       data=>{
-        console.log(data)
-        localStorage.setItem("token",data.jwt)
-        localStorage.setItem("user",JSON.stringify(data.userObj))
-        if(data.userObj.role.toString()==="Admin"){
-          this.router.navigateByUrl("/admin")
+        if(data.success){
+          console.log(data)
+          localStorage.clear();
+          localStorage.setItem("token",data.jwt)
+          localStorage.setItem("user",JSON.stringify(data.userObj))
+          if(data?.userObj?.role.toString()==="Admin"){
+            this.router.navigateByUrl("/admin")
+          }
+          else{
+            console.log("adlfhdakj")
+          } 
         }
         else{
-          console.log("adlfhdakj")
+          console.log("error",data)
+        this.toastService.error(data.message)
+
         }
         
         // this.router.navigateByUrl("/authority")
       },
       err=>{
+        this.toastService.error(err.message)
         console.log("Error Occured",err);
       }
     )

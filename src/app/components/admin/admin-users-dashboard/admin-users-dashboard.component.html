@@ -2,44 +2,187 @@
     <div></div>
     <h3>User Dashboard</h3>
     <div>
-        <button mat-raised-button color="primary"><mat-icon>add</mat-icon>Add User</button>
+        <button mat-raised-button color="primary" 
+        data-bs-toggle="modal" data-bs-target="#usercreateModal"
+        ><mat-icon>add</mat-icon>Add
+            User</button>
     </div>
 </div>
 <div class="users-list">
-<table class="user-table">
-    <tbody>
-        <tr>
-            <th class="sno">S no</th>
-            <th class="username">UserName</th>
-            <th class="name">Name</th>
-            <th class="role">Role</th>
-           
-        </tr>
-        <ng-container *ngFor="let user of users; let i=index;">
+    <table class="user-table">
+        <tbody>
             <tr>
-                <td class="sno">{{i+1}}</td>
-                <td class="username">{{user.userName}}</td>
-                <td class="name">{{user.name}}</td>
-                <td class="role">
-                    <div style="display: flex;justify-content: space-between;">
-                        <div></div>
-                        <div>
-                            {{user.role}}
-                        </div>
-                        <div class="icon" style="display:flex; flex-direction: row;">
-                            <button mat-icon-button color="primary" (click)="editUser(user)"
-                                style="display:flex; justify-content: center; align-items: center;">
-                                <mat-icon>create</mat-icon>
-                            </button>
-                            <button mat-icon-button color="warn" (click)="deleteUser(user)"
-                                style="display:flex; justify-content: center; align-items: center;">
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </div>
-                    </div>
-                </td>
+                <th class="sno">S no</th>
+                <th class="username">UserName</th>
+                <th class="name">Name</th>
+                <th class="role">Role</th>
+
             </tr>
-        </ng-container>
-    </tbody>
-</table>
+            <ng-container *ngFor="let user of users; let i=index;">
+                <tr>
+                    <td class="sno">{{i+1}}</td>
+                    <td class="username">{{user?.userName}}</td>
+                    <td class="name">{{user?.firstName}} {{ user?.lastName}}</td>
+                    <td class="role">
+                        <div style="display: flex;justify-content: space-between;">
+                            <div></div>
+                            <div>
+                                {{user?.role}}
+                            </div>
+                            <div class="icon" style="display:flex; flex-direction: row;">
+                                <button mat-icon-button color="primary" (click)="setUserDetailstoedit(user)"  data-bs-toggle="modal" data-bs-target="#userUpdateModal" 
+                                    style="display:flex; justify-content: center; align-items: center;">
+                                    <mat-icon>create</mat-icon>
+                                </button>
+                                <button mat-icon-button color="warn" (click)="setDeleteUser(user)"  data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    style="display:flex; justify-content: center; align-items: center;">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
 </div>
+
+
+
+
+
+
+  
+  <!-- Create User Modal -->
+  <div class="modal fade" id="usercreateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Users</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="overflow-y: auto;">
+            <div style="margin: 10px 0; height: 490px;box-shadow: 0px 0.5px 0px 0px grey;">
+                <div class="form-container" style="display:flex; flex-direction: column;">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <input type="text" matInput placeholder="" [(ngModel)]="userTemplate.firstName" required>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput placeholder="" [(ngModel)]="userTemplate.lastName" required>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput placeholder="" [(ngModel)]="userTemplate.email" required>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>UserName</mat-label>
+                        <input matInput placeholder="" [(ngModel)]="userTemplate.userName" required>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Role</mat-label>
+                        <input matInput placeholder="" [(ngModel)]="userTemplate.role" required>
+                    </mat-form-field> 
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Mobile No</mat-label>
+                        <input matInput placeholder="" type="number" [(ngModel)]="userTemplate.mobileNo" required>
+                    </mat-form-field>
+                
+                    <mat-radio-group aria-label="Select an option" [(ngModel)]="userTemplate.gender" style="margin-bottom: 15px;">
+                        <mat-label>Gender</mat-label><br>
+                        <mat-radio-button value="male" style="margin-right: 10px;">Male</mat-radio-button>
+                        <mat-radio-button value="female" style="margin-right: 10px;">Female</mat-radio-button>
+                        <mat-radio-button value="others">Others</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input matInput placeholder="" [(ngModel)]="userTemplate.password" required>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="createUser(userTemplate)" data-bs-dismiss="modal">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Update User Model -->
+  <div class="modal fade" id="userUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="overflow-y: auto;">
+            <div style="margin: 10px 0; height: 490px;box-shadow: 0px 0.5px 0px 0px grey;">
+                <div class="form-container" style="display:flex; flex-direction: column;">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <input type="text" matInput placeholder="" [(ngModel)]="userTemplate.firstName" required>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput placeholder="" [(ngModel)]="userTemplate.lastName" required>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput placeholder="" [(ngModel)]="userTemplate.email" required>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>UserName</mat-label>
+                        <input matInput placeholder="" [(ngModel)]="userTemplate.userName" required>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Role</mat-label>
+                        <input matInput placeholder="" [(ngModel)]="userTemplate.role" required>
+                    </mat-form-field> 
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Mobile No</mat-label>
+                        <input matInput placeholder="" type="number" [(ngModel)]="userTemplate.mobileNo" required>
+                    </mat-form-field>
+                   
+                    <mat-radio-group aria-label="Select an option" [(ngModel)]="userTemplate.gender" style="margin-bottom: 15px;">
+                        <mat-label>Gender</mat-label><br>
+                        <mat-radio-button value="male" style="margin-right: 10px;">Male</mat-radio-button>
+                        <mat-radio-button value="female" style="margin-right: 10px;">Female</mat-radio-button>
+                        <mat-radio-button value="others">Others</mat-radio-button>
+                    </mat-radio-group>
+                    <!-- <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input matInput placeholder="" [(ngModel)]="userTemplate.password" required>
+                    </mat-form-field> -->
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="editUser(userTemplate)" data-bs-dismiss="modal">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- delete User Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are You sure you want to delete the user {{userTemplate.firstName}} {{userTemplate.lastName}}..?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-warning" (click)="deleteUser(userTemplate)" data-bs-dismiss="modal">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

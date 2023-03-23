@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AdminServiceService } from 'src/app/services/admin-service.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import {user} from '../../../models/users'
 
 @Component({
   selector: 'app-admin-users-dashboard',
@@ -9,66 +12,94 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 export class AdminUsersDashboardComponent implements OnInit {
 
 
+  public dialogRef!:any ;
+
   constructor(
+    public dialog: MatDialog,
     private userService:UserServiceService,
+    private adminService:AdminServiceService,
   ) { }
 
-  users=[
-    {
-      firstName:"Anil",
-      lastName:'Bathini',
-      email:'anil@gmail.com',
-      userName:'anilBathini',
-      role:'authority',
-      name:""
-    }, {
-      firstName:"Hari",
-      lastName:'Teja',
-      email:'hari@gmail.com',
-      userName:'Hariteja',
-      role:'authority',
-      name:""
-    }, {
-      firstName:"Anil",
-      lastName:'Bathini',
-      email:'anil@gmail.com',
-      userName:'anilBathini',
-      role:'student',
-      name:""
-    }, {
-      firstName:"Anil",
-      lastName:'Bathini',
-      email:'anil@gmail.com',
-      userName:'anilBathini',
-      role:'student',
-      name:""
-    }
-  ]
+  userTemplate:user={
+    firstName:"",
+    lastName:"",
+    email:"",
+    userName:"",
+    role:"",
+    mobileNo:"",
+    gender:"",
+    password:"",
+  };
+   
+  users:user[]=[]
   ngOnInit(): void {
     this.userService.authenticate()
     this.getUsers();
   }
 
-  formatUsers(users:any){
-    for(let user of users){
-      user.name=user.firstName+" "+user.lastName
-    }
-  }
+
 
   getUsers(){
-    this.formatUsers(this.users)
+    this.users=[];
+    this.adminService.getUsers().subscribe(res=>{
+      if(res.success){
+        this.users=res.data
+        console.log(this.users)
+      }
+    })
   }
 
-  createUser(){
-
+  createUser(user:any){
+    const data=user
+    this.adminService.addUser(data).subscribe(res=>{
+      if(res.success){
+        alert(res.message)
+        this.users=[]
+        this.getUsers()
+      }
+      else{
+        alert(res.message)
+      }
+    })
   }
 
   editUser(user:any){
-    console.log(user)
+  
+    this.adminService.updateUser(user).subscribe(res=>{
+      if(res.success){
+        alert(res.message)
+        this.users=[]
+        this.getUsers()
+      }
+      else{
+        alert(res.message)
+      }
+    })
+  }
+  
+  setUserDetailstoedit(user:user){
+    this.userTemplate=user;
+  }
+
+  setDeleteUser(user:any){
+    this.userTemplate=user;
   }
 
   deleteUser(user:any){
-    
+    const params={
+      userId:user._id
+    }
+    console.log(params)
+    this.adminService.deleteUser(params).subscribe(res=>{
+      if(res.success){
+        alert(res.message)
+        this.users=[]
+        this.getUsers();
+      }
+      else{
+        alert(res.message)
+      }
+    })
   }
 
 }

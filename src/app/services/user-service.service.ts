@@ -17,7 +17,8 @@ export class UserServiceService {
 
   authenticate():any{
     let userObj=localStorage.getItem('user');
-    if(!userObj){
+    let token=localStorage.getItem('token');
+    if(!userObj || !token){
       this.router.navigate(['/login'])
     }
 
@@ -33,6 +34,7 @@ export class UserServiceService {
 
   logout():any{
     localStorage.clear();
+    alert("Logged Out SuccessFully")
     this.router.navigate(['/login'])
   }
 }

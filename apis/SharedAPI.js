@@ -16,11 +16,11 @@ sharedApiRoute.use(exp.json())
 sharedApiRoute.post("/login", async (req, res,next) => {
     try{
         let dbobj = req.app.locals.databaseusersObj.collection('users');
-        data = await dbobj.findOne({ username: req.body.username })
+        data = await dbobj.findOne({ userName: req.body.username })
         
         console.log(req.body)
         if (data === null) {
-            res.send({ message: "No user with the given credentials" })
+            res.send({ message: "No user with the given credentials",code:404,success:false })
         }
         else{
             let result= await bcrypt.compare(req.body.password,data.password);
@@ -39,25 +39,6 @@ sharedApiRoute.post("/login", async (req, res,next) => {
     }
 })
 
-sharedApiRoute.post("/register", async(req, res,next) => {
-    try{
-        let dbobj = req.app.locals.databaseusersObj;
-        io=req.body;
-        data=await dbobj.collection('users').findOne({ username: req.body.username });
-        if (data !== null) {
-            res.send({ message: "User already exists..." })
-        }
-        else {
-            console.log(req.body.password)
-            req.body.password=await bcrypt.hash(req.body.password,5);
-            data=await dbobj.collection('users').insertOne(req.body);
-            res.send({ message: "User Registration successfull",code:202,success:true});
-        }
-    }
-    catch(err){
-        next(err);
-    }
-})
 
 
 module.exports = sharedApiRoute;
