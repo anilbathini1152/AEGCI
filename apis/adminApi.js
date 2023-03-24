@@ -21,7 +21,6 @@ adminApiRoute.get("/users",verifyToken, async(req, res,next) => {
 adminApiRoute.post("/add-user",verifyToken, async(req, res,next) => {
     try{
         data=await User.find({ userName: req.body.userName });
-        console.log(data)
         if (data.length > 0) {
             res.send({ message: "User already exists...", code:404,success:false})
         }
@@ -40,19 +39,16 @@ adminApiRoute.post("/add-user",verifyToken, async(req, res,next) => {
 adminApiRoute.put("/updateuser",verifyToken, async (req, res,next) => {
     try{
     let uid =new mongoose.Types.ObjectId(req.body._id);
-    console.log(uid)
     data=await User.findOne({ _id: uid })
     delete req.body._id
     if (data == null)
         res.send({ message: "User not found" ,code:404, success:false})
     else {
         // req.body.password=await bcrypt.hash(req.body.password,5);
-        console.log({...req.body})
         await User.updateOne({ _id: uid }, {$set: { 
             ...req.body
          } });
         let user=await User.find({_id:new mongoose.Types.ObjectId(uid)}).lean()
-        console.log(user)
         res.send({ message: "User updated successfully",code:202,success:true })
         }
     }

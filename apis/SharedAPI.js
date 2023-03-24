@@ -20,10 +20,7 @@ const User=require('../mongo Models/user')
 
 sharedApiRoute.post("/login", async (req, res,next) => {
     try{
-        console.log("akjsfkja")
         data = await User.findOne({ userName: req.body.username })
-        
-        console.log(req.body)
         if (data === null) {
             res.send({ message: "No user with the given credentials",code:404,success:false })
         }

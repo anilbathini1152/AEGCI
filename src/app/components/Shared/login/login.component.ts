@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
           localStorage.clear();
           localStorage.setItem("token",data.jwt)
           localStorage.setItem("user",JSON.stringify(data.userObj))
-          if(data?.userObj?.role.toString()==="Admin"){
+          if(data?.userObj?.role.toString()==="admin"){
             this.router.navigateByUrl("/admin")
           }
           else{

@@ -13,12 +13,19 @@ const port=5000;
 
 app.use( exp.static(path.join(__dirname,"dist/aegci")))
 
-mongoose.connect(dburl,{useNewUrlParser:true,useUnifiedTopology:true}).
-then((cli)=>{
-    console.log("Succcessfully connected to db")
-}).catch((err)=>{
-    console.log("Error Occured",err) 
-})
+
+const connnectToDb=async ()=>{
+    try{
+        await mongoose.connect(dburl,{useNewUrlParser:true,useUnifiedTopology:true})
+        console.log("Succcessfully connected to db")
+    }
+    catch(err){
+        console.log("Error Occured",err) 
+    }
+}
+
+
+connnectToDb()
 
 
 
@@ -36,7 +43,6 @@ app.use("/admin",adminApiRoute);
 app.use('/*',proxy('http://localhost:'+port+'/*'))
 
 app.use((err,req,res,next)=>{
-    // console.log(err.message)
     res.send({message:err.message,code:404,success:false})
 })
 
