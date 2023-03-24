@@ -13,7 +13,9 @@ export class AuthorizationInterceptorService implements HttpInterceptor{
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let token=localStorage.getItem('token')
     let userObj=localStorage.getItem('user')
-    let userId=JSON.parse(userObj || "")?._id
+    let userId
+    if(userObj)
+      userId=JSON.parse(userObj || "")?._id
     console.log("User Obj",userId)
     if(token){
       let copyReqObj=req.clone({

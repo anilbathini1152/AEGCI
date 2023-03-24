@@ -3,6 +3,11 @@ const bcrypt=require("bcrypt");
 const jwt=require("jsonwebtoken");
 const sharedApiRoute = exp.Router();
 sharedApiRoute.use(exp.json())
+const mongoose=require('mongoose')
+const User=require('../mongo Models/user')
+
+
+
 
 // sharedApiRoute.get("/authenticate"),(req,res,next)=>{
 //     try{
@@ -15,8 +20,8 @@ sharedApiRoute.use(exp.json())
 
 sharedApiRoute.post("/login", async (req, res,next) => {
     try{
-        let dbobj = req.app.locals.databaseusersObj.collection('users');
-        data = await dbobj.findOne({ userName: req.body.username })
+        console.log("akjsfkja")
+        data = await User.findOne({ userName: req.body.username })
         
         console.log(req.body)
         if (data === null) {
