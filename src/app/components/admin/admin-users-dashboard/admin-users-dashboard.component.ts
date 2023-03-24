@@ -36,6 +36,17 @@ export class AdminUsersDashboardComponent implements OnInit {
     gender:"",
     password:"",
   };
+
+  emptyTemplate:user={
+    firstName:"",
+    lastName:"",
+    email:"",
+    userName:"",
+    role:"",
+    mobileNo:"",
+    gender:"",
+    password:"",
+  };
    
   users:user[]=[]
   ngOnInit(): void {
@@ -59,6 +70,7 @@ export class AdminUsersDashboardComponent implements OnInit {
     console.log(user)
     const data=user
     this.adminService.addUser(data).subscribe(res=>{
+      this.userTemplate=this.emptyTemplate
       if(res.success){
         alert(res.message)
         this.users=[]
@@ -73,6 +85,7 @@ export class AdminUsersDashboardComponent implements OnInit {
   editUser(user:any){
   
     this.adminService.updateUser(user).subscribe(res=>{
+      this.userTemplate=this.emptyTemplate
       if(res.success){
         alert(res.message)
         this.users=[]
@@ -99,9 +112,9 @@ export class AdminUsersDashboardComponent implements OnInit {
     console.log(params)
     this.adminService.deleteUser(params).subscribe(res=>{
       if(res.success){
-        alert(res.message)
         this.users=[]
         this.getUsers();
+        alert(res.message)
       }
       else{
         alert(res.message)
