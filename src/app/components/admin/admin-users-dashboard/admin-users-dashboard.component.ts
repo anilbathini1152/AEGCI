@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminServiceService } from 'src/app/services/admin-service.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
-import {user} from '../../../models/users'
+import {user} from '../../../models/models'
 
 @Component({
   selector: 'app-admin-users-dashboard',
@@ -35,6 +35,7 @@ export class AdminUsersDashboardComponent implements OnInit {
     mobileNo:"",
     gender:"",
     password:"",
+    score:0
   };
 
   emptyTemplate:user={
@@ -46,6 +47,7 @@ export class AdminUsersDashboardComponent implements OnInit {
     mobileNo:"",
     gender:"",
     password:"",
+    score:0
   };
    
   users:user[]=[]
@@ -61,7 +63,6 @@ export class AdminUsersDashboardComponent implements OnInit {
     this.adminService.getUsers().subscribe(res=>{
       if(res.success){
         this.users=res.data
-        console.log(this.users)
       }
     })
   }

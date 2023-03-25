@@ -8,10 +8,14 @@ const app=exp();
 const dburl="mongodb://localhost:27017/AEGCI";
 const proxy=require('express-http-proxy')
 const mongoose=require('mongoose')
+const cron = require('cron');
+const { spawn } = require('child_process');
 
+// const dbObj=require('./apis/dbConnection')
 const port=5000;
 
 app.use( exp.static(path.join(__dirname,"dist/aegci")))
+
 
 
 const connnectToDb=async ()=>{
@@ -24,8 +28,15 @@ const connnectToDb=async ()=>{
     }
 }
 
-
 connnectToDb()
+
+const job = new cron.CronJob('* * * * *', function() {
+    
+});
+
+job.start()
+
+
 
 
 
@@ -50,3 +61,7 @@ app.listen(port,()=>{
     console.log(`server listening on ${port}`);
 })
 
+
+
+
+  
