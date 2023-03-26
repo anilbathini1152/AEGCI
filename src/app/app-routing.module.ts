@@ -21,8 +21,8 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'authority'
-    , component: AuthorityDashboardComponent,
+    path: 'authority',
+    component: AuthorityDashboardComponent,
     children: []
   },
   {

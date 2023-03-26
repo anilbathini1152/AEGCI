@@ -30,27 +30,30 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.data).subscribe(
       data=>{
         if(data.success){
-          console.log(data)
           localStorage.clear();
           localStorage.setItem("token",data.jwt)
           localStorage.setItem("user",JSON.stringify(data.userObj))
           if(data?.userObj?.role.toString()==="admin"){
             this.router.navigateByUrl("/admin")
           }
+          else if(data?.userObj?.role.toString()==="authority"){
+            this.router.navigateByUrl("/authority")
+          }
+          else if(data?.userObj?.role.toString()==="student"){
+            this.router.navigateByUrl("/student")
+          } 
           else{
-            console.log("adlfhdakj")
+            alert("Invalid Role of user")
           } 
         }
         else{
-          console.log("error",data)
-        this.toastService.error(data.message)
-
+          alert(data.message)
         }
         
         // this.router.navigateByUrl("/authority")
       },
       err=>{
-        this.toastService.error(err.message)
+        alert(err.message)
         console.log("Error Occured",err);
       }
     )

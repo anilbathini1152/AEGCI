@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { user } from '../models/users';
+import { user } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,6 @@ export class AuthorizationInterceptorService implements HttpInterceptor{
     let userId
     if(userObj)
       userId=JSON.parse(userObj || "")?._id
-    console.log("User Obj",userId)
     if(token){
       let copyReqObj=req.clone({
         headers:req.headers.set("Authorization","Bearer "+token),

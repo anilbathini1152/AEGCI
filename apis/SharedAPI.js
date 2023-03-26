@@ -7,17 +7,6 @@ const mongoose=require('mongoose')
 const User=require('../mongo Models/user')
 
 
-
-
-// sharedApiRoute.get("/authenticate"),(req,res,next)=>{
-//     try{
-//         res.send({message:"Authenticated Successfull",success:true,code:200})
-//     }
-//     catch(err){
-//         next(err)
-//     }
-// }
-
 sharedApiRoute.post("/login", async (req, res,next) => {
     try{
         data = await User.findOne({ userName: req.body.username })

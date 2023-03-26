@@ -24,7 +24,6 @@ const userSchema=new mongoose.Schema({
     },
     mobileNo:{
         type:Number,
-        required:true
     },
     gender:{
         type:String,
@@ -33,6 +32,11 @@ const userSchema=new mongoose.Schema({
     password:{
         type:String,
         required:true
+    },
+    score:{
+        type:Number,
+        required:true,
+        default:0
     }
 
 })
