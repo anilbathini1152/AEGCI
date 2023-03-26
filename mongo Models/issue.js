@@ -21,6 +21,13 @@ const issueSchema=new mongoose.Schema({
     priority:{
         type:String,
         required:true
+    },
+    state:{
+        type:String,
+        default:"Under Progress"
+    },
+    compleatedAt:{
+        type:Date,
     }
 })
 

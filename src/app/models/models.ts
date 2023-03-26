@@ -39,6 +39,8 @@ export interface issue{
     description:String,
     authority:user,
     raisedBy:String,
-    createdAt:Date,
-    priority:String
+    createdAt?:Date,
+    priority:String,
+    state?:String,
+    compleatedAt?:Date,
 }
