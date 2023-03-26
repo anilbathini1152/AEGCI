@@ -25,7 +25,7 @@
                 <tr>
                     <td class="sno">{{i+1}}</td>
                     <td class="desc">{{issue?.description}}</td>
-                    <td class="type">{{issue?.authority}}</td>
+                    <td class="type">{{issue?.authority?.firstName}} {{issue?.authority?.lastName}}</td>
                     <td class="amount">{{issue?.priority}}</td>
                     <td class="place">{{issue?.raisedBy}}</td>
                     <td class="place">{{issue?.state}}</td>
