@@ -7,6 +7,7 @@ const issueSchema=new mongoose.Schema({
     },
     authority:{
         type:mongoose.SchemaTypes.ObjectId,
+        ref:"User",
         required:true
     },
     raisedBy:{

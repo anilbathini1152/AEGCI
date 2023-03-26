@@ -1,1 +1,191 @@
-<p>admin-events-dashboard works!</p>
+<div class="nav-container">
+    <div></div>
+    <h3>Events Dashboard</h3>
+    <div>
+        <button mat-raised-button color="primary" 
+        data-bs-toggle="modal" data-bs-target="#eventcreateModal"
+        ><mat-icon>add</mat-icon>Add
+            Event</button>
+    </div>
+</div>
+<div class="users-list">
+    <table class="user-table">
+        <tbody>
+            <tr>
+                <th class="sno">S no</th>
+                <th class="name">Name</th>
+                <th class="desc">Description</th>
+                <th class="type">Type</th>
+                <th class="place">Place</th>
+                <th class="date">Date</th>
+                <th class="amount">Entry Fee</th>
+                <th class="org">Organised by</th>
+                <th class="points">Reward Points</th>
+            </tr>
+            <ng-container *ngFor="let event of events; let i=index;">
+                <tr>
+                    <td class="sno">{{i+1}}</td>
+                    <td class="username">{{event?.name}}</td>
+                    <td class="desc">{{event?.description}}</td>
+                    <td class="type">{{event?.type}}</td>
+                    <td class="place">{{event?.place}}</td>
+                    <td class="date">{{event?.date}}</td>
+                    <td class="amount">{{event?.amount}}</td>
+                    <td class="org">{{event?.organiser?.firstName}} {{event?.organiser?.lastName}}</td>
+                    <td class="points">
+                        <div style="display: flex;justify-content: space-between;">
+                            <div></div>
+                            <div>
+                                {{event?.score}}
+                            </div>
+                            <div class="icon" style="display:flex; flex-direction: row;">
+                                <button mat-icon-button color="primary" (click)="setEventDetailstoedit(event)"  data-bs-toggle="modal" data-bs-target="#eventUpdateModal" 
+                                    style="display:flex; justify-content: center; align-items: center;">
+                                    <mat-icon>create</mat-icon>
+                                </button>
+                                <button mat-icon-button color="warn" (click)="setDeleteEvent(event)"  data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    style="display:flex; justify-content: center; align-items: center;">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+  
+  <!-- Create User Modal -->
+  <div class="modal fade" id="eventcreateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Events</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="overflow-y: auto;">
+            <div style="margin: 10px 0; height: 490px;box-shadow: 0px 0.5px 0px 0px grey;">
+                <div class="form-container" style="display:flex; flex-direction: column;">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input type="text" matInput placeholder="" [(ngModel)]="eventTemplate.name" required>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Description</mat-label>
+                        <input matInput placeholder="" [(ngModel)]="eventTemplate.description" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Select Event Type</mat-label>
+                        <select matNativeControl [(ngModel)]="eventTemplate.type" name="food">
+                          <option *ngFor="let type of eventTypes" [value]="type.name">
+                            {{type.name}} Event
+                          </option>
+                        </select>
+                      </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Place</mat-label>
+                        <input matInput placeholder="" [(ngModel)]="eventTemplate.place" required>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Date</mat-label>
+                        <input matInput placeholder="" type="date" [(ngModel)]="eventTemplate.date" required>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Entry Fee</mat-label>
+                        <input matInput placeholder="" type="number" [(ngModel)]="eventTemplate.amount" required>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>score</mat-label>
+                        <input matInput placeholder="" type="number" [(ngModel)]="eventTemplate.score" required>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="createEvent(eventTemplate)" data-bs-dismiss="modal">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Update User Model -->
+  <div class="modal fade" id="eventUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="overflow-y: auto;">
+            <div style="margin: 10px 0; height: 490px;box-shadow: 0px 0.5px 0px 0px grey;">
+                <div class="form-container" style="display:flex; flex-direction: column;">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input type="text" matInput placeholder="" [(ngModel)]="eventTemplate.name" required>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Description</mat-label>
+                        <input matInput placeholder="" [(ngModel)]="eventTemplate.description" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Select Event Type</mat-label>
+                        <select matNativeControl [(ngModel)]="eventTemplate.type" name="food">
+                          <option *ngFor="let type of eventTypes" [value]="type.name">
+                            {{type.name}} Event
+                          </option>
+                        </select>
+                      </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Place</mat-label>
+                        <input matInput placeholder="" [(ngModel)]="eventTemplate.place" required>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Date</mat-label>
+                        <input matInput placeholder="" type="date" [(ngModel)]="eventTemplate.date" required>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Entry Fee</mat-label>
+                        <input matInput placeholder="" type="number" [(ngModel)]="eventTemplate.amount" required>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>score</mat-label>
+                        <input matInput placeholder="" type="number" [(ngModel)]="eventTemplate.score" required>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="editEvent(eventTemplate)" data-bs-dismiss="modal">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- delete User Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are You sure you want to delete the user {{eventTemplate.name}}..?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-warning" (click)="deleteEvent(eventTemplate)" data-bs-dismiss="modal">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

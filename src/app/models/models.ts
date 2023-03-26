@@ -17,10 +17,10 @@ export interface event{
     description:String,
     type:String,
     place:String,
-    date:Date,
+    date:Date|null,
     amount:number,
     organiser:user,
-    createdAt:Date,
+    createdAt?:Date,
     score:Number,
 }
 
@@ -29,9 +29,9 @@ export interface eventuser{
     user:user,
     event:event,
     state:String,
-    enroledAt:Date,
-    finshedAt:Date,
-    verifiedAt:Date
+    enroledAt?:Date,
+    finshedAt?:Date,
+    verifiedAt?:Date
 }
 
 export interface issue{

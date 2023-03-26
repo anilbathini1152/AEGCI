@@ -4,10 +4,12 @@ const user = require('./user')
 const eventUserSchema=new mongoose.Schema({ 
     user:{
         type:mongoose.SchemaTypes.ObjectId,
+        ref:"User",
         required:true
     },
     event:{
         type:mongoose.SchemaTypes.ObjectId,
+        ref:"Event",
         required:true
     },
     state:{

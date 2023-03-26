@@ -16,7 +16,6 @@ export class AuthorizationInterceptorService implements HttpInterceptor{
     let userId
     if(userObj)
       userId=JSON.parse(userObj || "")?._id
-    console.log("User Obj",userId)
     if(token){
       let copyReqObj=req.clone({
         headers:req.headers.set("Authorization","Bearer "+token),

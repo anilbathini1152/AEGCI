@@ -39,7 +39,7 @@ adminApiRoute.post("/add-user", verifyToken, async (req, res, next) => {
     }
 })
 
-adminApiRoute.put("/updateuser", verifyToken, async (req, res, next) => {
+adminApiRoute.put("/update-user", verifyToken, async (req, res, next) => {
     try {
         let uid = new mongoose.Types.ObjectId(req.body._id);
         data = await User.findOne({ _id: uid })
@@ -62,12 +62,12 @@ adminApiRoute.put("/updateuser", verifyToken, async (req, res, next) => {
     }
 })
 
-adminApiRoute.delete("/deleteuser/", verifyToken, async (req, res, next) => {
+adminApiRoute.delete("/delete-user/", verifyToken, async (req, res, next) => {
     try {
 
         let id = new mongoose.Types.ObjectId(req.query.userId)
         data = await User.findOne({ _id: id })
-        if (data == null) res.send({ message: "User not exist" })
+        if (data == null) res.send({ message: "User not exist" ,success:false ,code:404})
         else {
             await User.deleteOne({ _id: id })
             res.send({ message: "User deleted successfully" ,code:200,success:true })
@@ -82,7 +82,7 @@ adminApiRoute.delete("/deleteuser/", verifyToken, async (req, res, next) => {
 //event Routes
 adminApiRoute.get("/events", verifyToken, async (req, res, next) => {
     try {
-        const events = await Event.find({}).lean();
+        const events = await Event.find({}).populate("organiser").lean();
         res.send({ data: events, message: 'success', code: 200, success: true })
     }
     catch (err) {
@@ -128,7 +128,7 @@ adminApiRoute.delete("/delete-event/", verifyToken, async (req, res, next) => {
     try {
         let id = new mongoose.Types.ObjectId(req.query.eventId)
         data = await Event.findOne({ _id: id })
-        if (data == null) res.send({ message: "Event not exist" })
+        if (data == null) res.send({ message: "Event not exist" ,success:false ,code:404})
         else {
             await Event.deleteOne({ _id: id })
             res.send({ message: "Event deleted successfully",code:200,success:true })
@@ -188,7 +188,7 @@ adminApiRoute.delete("/delete-issue/", verifyToken, async (req, res, next) => {
     try {
         let id = new mongoose.Types.ObjectId(req.query.issueId)
         data = await Issue.findOne({ _id: id })
-        if (data == null) res.send({ message: "Issue not exist" })
+        if (data == null) res.send({ message: "Issue not exist" ,success:false ,code:404})
         else {
             await Issue.deleteOne({ _id: id })
             res.send({ message: "Issue deleted successfully",code:200,success:true })
@@ -216,7 +216,7 @@ adminApiRoute.post("/add-event-registration", verifyToken, async (req, res, next
         req.body.user = new mongoose.Types.ObjectId(req.body.user)
         req.body.event = new mongoose.Types.ObjectId(req.body.event)
         data = await EventRegistration.create(req.body);
-        res.send({ message: "Issue added successfully", code: 202, success: true });
+        res.send({ message: "Event Registration successfull", code: 202, success: true });
     }
     catch (err) {
         next(err);
@@ -248,11 +248,41 @@ adminApiRoute.delete("/delete-event-registration/", verifyToken, async (req, res
     try {
         let id = new mongoose.Types.ObjectId(req.query.regId)
         data = await EventRegistration.findOne({ _id: id })
-        if (data == null) res.send({ message: "Issue not exist" })
+        if (data == null) res.send({ message: "Issue not exist" ,success:false ,code:404})
         else {
             await EventRegistration.deleteOne({ _id: id })
             res.send({ message: "event-registration deleted successfully",code:200,success:true })
         }
+    }
+    catch (err) {
+        next(err)
+    }
+})
+
+//Support Routes
+adminApiRoute.get("/get-admin-users", verifyToken, async (req, res, next) => {
+    try {
+        const users = await User.find({role:"admin"}).lean();
+        res.send({ data: users, message: 'success', code: 200, success: true })
+    }
+    catch (err) {
+        next(err)
+    }
+})
+
+adminApiRoute.get("/get-authority-users", verifyToken, async (req, res, next) => {
+    try {
+        const users = await User.find({role:"authority"}).lean();
+        res.send({ data: users, message: 'success', code: 200, success: true })
+    }
+    catch (err) {
+        next(err)
+    }
+})
+adminApiRoute.get("/get-student-users", verifyToken, async (req, res, next) => {
+    try {
+        const users = await User.find({role:"student"}).lean();
+        res.send({ data: users, message: 'success', code: 200, success: true })
     }
     catch (err) {
         next(err)

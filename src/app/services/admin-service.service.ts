@@ -26,11 +26,73 @@ export class AdminServiceService {
   }
 
   updateUser(data:{}):Observable<any>{
-    return this.http.put(this.basePath+"/updateuser",data)
+    return this.http.put(this.basePath+"/update-user",data)
   }
 
   deleteUser(params:any):Observable<any>{
-    return this.http.delete(this.basePath+"/deleteuser",{params:params})
+    return this.http.delete(this.basePath+"/delete-user",{params:params})
   }
 
+  // Events
+  addEvent(data:{}):Observable<any>{
+    return this.http.post(this.basePath+"/add-event",data);
+  }
+
+  getEvents():Observable<any>{
+    return this.http.get(this.basePath+"/events");
+  }
+
+  updateEvent(data:{}):Observable<any>{
+    return this.http.put(this.basePath+"/update-event",data)
+  }
+
+  deleteEvent(params:any):Observable<any>{
+    return this.http.delete(this.basePath+"/delete-event",{params:params})
+  }
+
+  //Issues
+
+  addIssue(data:{}):Observable<any>{
+    return this.http.post(this.basePath+"/add-issue",data);
+  }
+
+  getIssue():Observable<any>{
+    return this.http.get(this.basePath+"/issues");
+  }
+
+  updateIssue(data:{}):Observable<any>{
+    return this.http.put(this.basePath+"/update-issue",data)
+  }
+
+  deleteIssue(params:any):Observable<any>{
+    return this.http.delete(this.basePath+"/delete-issue",{params:params})
+  }
+
+  //Event Registrations
+  addEventRegistration(data:{}):Observable<any>{
+    return this.http.post(this.basePath+"/add-event-registration",data);
+  }
+
+  getEventRegistration():Observable<any>{
+    return this.http.get(this.basePath+"/event-registrations");
+  }
+
+  updateEventRegistration(data:{}):Observable<any>{
+    return this.http.put(this.basePath+"/update-event-registration",data)
+  }
+
+  deleteEventRegistration(params:any):Observable<any>{
+    return this.http.delete(this.basePath+"/delete-event-registration",{params:params})
+  }
+
+  //support routes
+  getAdminUsers():Observable<any>{
+    return this.http.get(this.basePath+"/get-admin-users");
+  }
+  getStudentUsers():Observable<any>{
+    return this.http.get(this.basePath+"/get-authority-users");
+  }
+  getAuhtorityUsers():Observable<any>{
+    return this.http.get(this.basePath+"/get-student-users");
+  }
 } 
