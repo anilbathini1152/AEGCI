@@ -1,0 +1,158 @@
+<div class="nav-container">
+    <div></div>
+    <h3>Event Registrations Dashboard</h3>
+    <div>
+        <button mat-raised-button color="primary" data-bs-toggle="modal"
+            data-bs-target="#issuecreateModal"><mat-icon>add</mat-icon>Add
+            Event Registration</button>
+    </div>
+</div>
+<div class="users-list">
+    <table class="user-table">
+        <tbody>
+            <tr>
+                <th class="sno">S no</th>
+                <th class="desc">Student Name</th>
+                <th class="type">Event Name</th>
+                <th class="amount">State</th>
+                <th class="place">Enrolled on</th>
+                <th class="org">Finished on</th>
+                <th class="date">Verified on</th>
+            </tr>
+            <ng-container *ngFor="let reg of regs; let i=index;">
+                <tr>
+                    <td class="sno">{{i+1}}</td>
+                    <td class="desc">{{reg?.user?.firstName}} {{reg?.user?.lastName}}</td>
+                    <td class="type">{{reg?.event?.name}} </td>
+                    <td class="amount">{{reg?.state}}</td>
+                    <td class="place">{{reg?.enroledAt ? (reg?.enroledAt | date:"dd/MM/yy"):"__________"}}</td>
+                    <td class="place">{{reg?.finshedAt ? (reg?.finshedAt | date:"dd/MM/yy"):"___________"}}</td>
+                    <td class="points">
+                        <div style="display: flex;justify-content: space-between;">
+                            <div></div>
+                            <div>
+                                {{reg?.verifiedAt?(reg?.verifiedAt | date:"dd/MM/yy"):"__________"}}
+                            </div>
+                            <div class="icon" style="display:flex; flex-direction: row;">
+                                <button mat-icon-button color="primary" (click)="setEventRegDetailstoedit(reg)"
+                                    data-bs-toggle="modal" data-bs-target="#issueUpdateModal"
+                                    style="display:flex; justify-content: center; align-items: center;">
+                                    <mat-icon>create</mat-icon>
+                                </button>
+                                <button mat-icon-button color="warn" (click)="setDeleteEvntReg(reg)"
+                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    style="display:flex; justify-content: center; align-items: center;">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+<!-- Create User Modal -->
+<div class="modal fade" id="issuecreateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Issue</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="overflow-y: auto;">
+                <div style="margin: 10px 0; height: 143px;">
+                    <div class="form-container" style="display:flex; flex-direction: column;">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Select Student</mat-label>
+                            <select matNativeControl [(ngModel)]="eventRegTemplate.user" >
+                                <option *ngFor="let user of studentUsers" [value]="user._id">
+                                    {{user.firstName}} {{user.lastName}}
+                                </option>
+                            </select>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Select Event</mat-label>
+                            <select matNativeControl [(ngModel)]="eventRegTemplate.event" >
+                                <option *ngFor="let event of events" [value]="event._id">
+                                    {{event.name}}
+                                </option>
+                            </select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="createEventReg(eventRegTemplate)"
+                    data-bs-dismiss="modal">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update User Model -->
+<div class="modal fade" id="issueUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Issue</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="overflow-y: auto;">
+                <div style="margin: 10px 0; height: 143px;">
+                    <div class="form-container" style="display:flex; flex-direction: column;">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Select Student</mat-label>
+                            <select matNativeControl [(ngModel)]="eventRegTemplate.user" name="food">
+                                <option *ngFor="let user of studentUsers" [value]="user._id">
+                                    {{user.firstName}} {{user.lastName}}
+                                </option>
+                            </select>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Select Event</mat-label>
+                            <select matNativeControl [(ngModel)]="eventRegTemplate.event" name="food">
+                                <option *ngFor="let event of events" [value]="event._id">
+                                    {{event.name}}
+                                </option>
+                            </select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="editEventReg(eventRegTemplate)"
+                    data-bs-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- delete User Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are You sure you want to delete the Event Registration..?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-warning" (click)="deleteIssue(eventRegTemplate)"
+                    data-bs-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

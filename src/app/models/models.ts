@@ -25,10 +25,10 @@ export interface event{
 }
 
 export interface eventuser{
-    _id:String,
+    _id?:String,
     user:user,
     event:event,
-    state:String,
+    state?:String,
     enroledAt?:Date,
     finshedAt?:Date,
     verifiedAt?:Date

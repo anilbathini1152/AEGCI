@@ -78,14 +78,14 @@ export class AdminIssuesDashboardComponent implements OnInit {
     })
   }
   getStudentUsers(){
-    this.adminService.getAdminUsers().subscribe((res)=>{
+    this.adminService.getStudentUsers().subscribe((res)=>{
       if(res.success){
         this.studentUsers=res.data
       }
     })
   }
   getAuthorityUsers(){
-    this.adminService.getAdminUsers().subscribe((res)=>{
+    this.adminService.getAuthorityUsers().subscribe((res)=>{
       if(res.success){
         this.authorityUsers=res.data
       }
@@ -119,7 +119,6 @@ export class AdminIssuesDashboardComponent implements OnInit {
   }
 
   editIssue(issue:any){
-  
     this.adminService.updateIssue(issue).subscribe(res=>{
       this.issueTemplate=this.emptyTemplate
       if(res.success){
@@ -133,6 +132,9 @@ export class AdminIssuesDashboardComponent implements OnInit {
     })
   }
   
+  setAssignIssue(issue:issue){
+    this.issueTemplate=issue
+  }
   setIssueDetailstoedit(issue:issue){
     this.issueTemplate=issue;
   }

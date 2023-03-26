@@ -29,7 +29,7 @@
                     <td class="desc">{{event?.description}}</td>
                     <td class="type">{{event?.type}}</td>
                     <td class="place">{{event?.place}}</td>
-                    <td class="date">{{event?.date}}</td>
+                    <td class="date">{{event?.date | date:"dd/MM/yy"}}</td>
                     <td class="amount">{{event?.amount}}</td>
                     <td class="org">{{event?.organiser?.firstName}} {{event?.organiser?.lastName}}</td>
                     <td class="points">

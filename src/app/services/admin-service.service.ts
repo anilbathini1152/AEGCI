@@ -89,10 +89,10 @@ export class AdminServiceService {
   getAdminUsers():Observable<any>{
     return this.http.get(this.basePath+"/get-admin-users");
   }
-  getStudentUsers():Observable<any>{
+  getAuthorityUsers():Observable<any>{
     return this.http.get(this.basePath+"/get-authority-users");
   }
-  getAuhtorityUsers():Observable<any>{
+  getStudentUsers():Observable<any>{
     return this.http.get(this.basePath+"/get-student-users");
   }
 } 

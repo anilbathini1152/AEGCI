@@ -24,6 +24,7 @@ import { ToastrModule } from 'ngx-toastr';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
+import { AdminEventRegistrationsComponent } from './components/admin/admin-event-registrations/admin-event-registrations.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +36,7 @@ import {MatSelectModule} from '@angular/material/select';
     AdminUsersDashboardComponent,
     AdminEventsDashboardComponent,
     AdminIssuesDashboardComponent,
+    AdminEventRegistrationsComponent,
     
   ],
   imports: [

@@ -29,14 +29,18 @@
                     <td class="amount">{{issue?.priority}}</td>
                     <td class="place">{{issue?.raisedBy}}</td>
                     <td class="place">{{issue?.state}}</td>
-                    <td class="date">{{issue?.createdAt}}</td>
+                    <td class="date">{{issue?.createdAt | date:"dd/MM/yy"}}</td>
                     <td class="points">
                         <div style="display: flex;justify-content: space-between;">
                             <div></div>
                             <div>
-                                {{issue?.compleatedAt}}
+                                {{issue?.compleatedAt ? (issue?.compleatedAt|date:"dd/MM/yy"):"________"}}
                             </div>
                             <div class="icon" style="display:flex; flex-direction: row;">
+                              <button mat-icon-button color="warn" (click)="setAssignIssue(issue)"  data-bs-toggle="modal" data-bs-target="#issueAssignModal"
+                                  style="display:flex; justify-content: center; align-items: center;">
+                                  <mat-icon>supervisor_account</mat-icon>
+                              </button>
                                 <button mat-icon-button color="primary" (click)="setIssueDetailstoedit(issue)"  data-bs-toggle="modal" data-bs-target="#issueUpdateModal" 
                                     style="display:flex; justify-content: center; align-items: center;">
                                     <mat-icon>create</mat-icon>
@@ -114,6 +118,36 @@
                   <select matNativeControl [(ngModel)]="issueTemplate.priority" name="food">
                     <option *ngFor="let priority of prioritys" [value]="priority.name">
                       {{priority.name}}
+                    </option>
+                  </select>
+                </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="editIssue(issueTemplate)" data-bs-dismiss="modal">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Assign Issue Modal -->
+  <div class="modal fade" id="issueAssignModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Issue</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="overflow-y: auto;">
+            <div style="margin: 10px 0; height: 143px;">
+                <div class="form-container" style="display:flex; flex-direction: column;">
+                <mat-form-field appearance="fill">
+                  <mat-label>Select Authority</mat-label>
+                  <select matNativeControl [(ngModel)]="issueTemplate.authority" name="food">
+                    <option *ngFor="let user of authorityUsers" [value]="user._id">
+                      {{user.firstName}} {{user.lastName}}
                     </option>
                   </select>
                 </mat-form-field>

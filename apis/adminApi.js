@@ -203,7 +203,7 @@ adminApiRoute.delete("/delete-issue/", verifyToken, async (req, res, next) => {
 
 adminApiRoute.get("/event-registrations", verifyToken, async (req, res, next) => {
     try {
-        const registrations = await EventRegistration.find({}).lean();
+        const registrations = await EventRegistration.find({}).populate('user').populate('event').lean();
         res.send({ data: registrations, message: 'success', code: 200, success: true })
     }
     catch (err) {

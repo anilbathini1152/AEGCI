@@ -8,6 +8,7 @@ import { StudnetDashboardComponent } from './components/student/studnet-dashboar
 import { AdminUsersDashboardComponent } from './components/admin/admin-users-dashboard/admin-users-dashboard.component';
 import { AdminEventsDashboardComponent } from './components/admin/admin-events-dashboard/admin-events-dashboard.component';
 import { AdminIssuesDashboardComponent } from './components/admin/admin-issues-dashboard/admin-issues-dashboard.component';
+import { AdminEventRegistrationsComponent } from './components/admin/admin-event-registrations/admin-event-registrations.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
     children: [
       { path: 'user-details', component: AdminUsersDashboardComponent },
       { path: 'event-details', component: AdminEventsDashboardComponent },
-      { path: 'issue-details', component: AdminIssuesDashboardComponent }
+      { path: 'issue-details', component: AdminIssuesDashboardComponent },
+      { path: "evnt-regs", component: AdminEventRegistrationsComponent }
     ]
   },
   {
