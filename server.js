@@ -9,7 +9,6 @@ const dburl="mongodb://localhost:27017/AEGCI";
 const proxy=require('express-http-proxy')
 const mongoose=require('mongoose')
 const cron = require('cron');
-const { spawn } = require('child_process');
 
 // const dbObj=require('./apis/dbConnection')
 const port=5000;

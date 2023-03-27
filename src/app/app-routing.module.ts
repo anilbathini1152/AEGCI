@@ -9,6 +9,10 @@ import { AdminUsersDashboardComponent } from './components/admin/admin-users-das
 import { AdminEventsDashboardComponent } from './components/admin/admin-events-dashboard/admin-events-dashboard.component';
 import { AdminIssuesDashboardComponent } from './components/admin/admin-issues-dashboard/admin-issues-dashboard.component';
 import { AdminEventRegistrationsComponent } from './components/admin/admin-event-registrations/admin-event-registrations.component';
+import { StudentEventsDashboardComponent } from './components/student/student-events-dashboard/student-events-dashboard.component';
+import { StudentEventRegistrationsComponent } from './components/student/student-event-registrations/student-event-registrations.component';
+import { AuthorityIssueDashboardComponent } from './components/authority/authority-issue-dashboard/authority-issue-dashboard.component';
+import { StudentLeaderboardComponent } from './components/student/student-leaderboard/student-leaderboard.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -25,12 +29,21 @@ const routes: Routes = [
   {
     path: 'authority',
     component: AuthorityDashboardComponent,
-    children: []
+    children: [
+      {path:'events',component:AdminEventsDashboardComponent},
+      {path:'event-registrations',component:AdminEventRegistrationsComponent},
+      {path:'issues',component:AdminIssuesDashboardComponent}
+    ]
   },
   {
     path: 'student',
     component: StudnetDashboardComponent,
-    children: []
+    children: [
+      {path:'events',component:StudentEventsDashboardComponent},
+      {path:'event-registrations',component:StudentEventRegistrationsComponent},
+      {path:'issues',component:AuthorityIssueDashboardComponent},
+      {path:'leader-board',component:StudentLeaderboardComponent}
+    ]
   },
   { path: "**", redirectTo: "login" }
 ];

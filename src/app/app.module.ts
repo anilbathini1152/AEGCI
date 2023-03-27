@@ -25,6 +25,13 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import { AdminEventRegistrationsComponent } from './components/admin/admin-event-registrations/admin-event-registrations.component';
+import { AuthorityEventsDashboardComponent } from './components/authority/authority-events-dashboard/authority-events-dashboard.component';
+import { AuthorityEventsRegistrationComponent } from './components/authority/authority-events-registration/authority-events-registration.component';
+import { AuthorityIssueDashboardComponent } from './components/authority/authority-issue-dashboard/authority-issue-dashboard.component';
+import { StudentEventsDashboardComponent } from './components/student/student-events-dashboard/student-events-dashboard.component';
+import { StudentEventRegistrationsComponent } from './components/student/student-event-registrations/student-event-registrations.component';
+import { StudentIssuesDashboardComponent } from './components/student/student-issues-dashboard/student-issues-dashboard.component';
+import { StudentLeaderboardComponent } from './components/student/student-leaderboard/student-leaderboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +44,13 @@ import { AdminEventRegistrationsComponent } from './components/admin/admin-event
     AdminEventsDashboardComponent,
     AdminIssuesDashboardComponent,
     AdminEventRegistrationsComponent,
+    AuthorityEventsDashboardComponent,
+    AuthorityEventsRegistrationComponent,
+    AuthorityIssueDashboardComponent,
+    StudentEventsDashboardComponent,
+    StudentEventRegistrationsComponent,
+    StudentIssuesDashboardComponent,
+    StudentLeaderboardComponent,
     
   ],
   imports: [
