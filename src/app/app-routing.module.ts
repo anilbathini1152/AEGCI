@@ -13,6 +13,9 @@ import { StudentEventsDashboardComponent } from './components/student/student-ev
 import { StudentEventRegistrationsComponent } from './components/student/student-event-registrations/student-event-registrations.component';
 import { AuthorityIssueDashboardComponent } from './components/authority/authority-issue-dashboard/authority-issue-dashboard.component';
 import { StudentLeaderboardComponent } from './components/student/student-leaderboard/student-leaderboard.component';
+import { AuthorityEventsDashboardComponent } from './components/authority/authority-events-dashboard/authority-events-dashboard.component';
+import { AuthorityEventsRegistrationComponent } from './components/authority/authority-events-registration/authority-events-registration.component';
+import { StudentIssuesDashboardComponent } from './components/student/student-issues-dashboard/student-issues-dashboard.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -30,9 +33,9 @@ const routes: Routes = [
     path: 'authority',
     component: AuthorityDashboardComponent,
     children: [
-      {path:'events',component:AdminEventsDashboardComponent},
-      {path:'event-registrations',component:AdminEventRegistrationsComponent},
-      {path:'issues',component:AdminIssuesDashboardComponent}
+      {path:'events',component:AuthorityEventsDashboardComponent},
+      {path:'event-registrations',component:AuthorityEventsRegistrationComponent},
+      {path:'issues',component:AuthorityIssueDashboardComponent}
     ]
   },
   {
@@ -41,7 +44,7 @@ const routes: Routes = [
     children: [
       {path:'events',component:StudentEventsDashboardComponent},
       {path:'event-registrations',component:StudentEventRegistrationsComponent},
-      {path:'issues',component:AuthorityIssueDashboardComponent},
+      {path:'issues',component:StudentIssuesDashboardComponent},
       {path:'leader-board',component:StudentLeaderboardComponent}
     ]
   },
