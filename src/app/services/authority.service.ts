@@ -14,6 +14,10 @@ export class AuthorityService {
     private http: HttpClient,
   ) { }
 
+
+  getImage(key:String):Observable<any>{
+    return this.http.get(this.basePath+"/images/"+key);
+  }
   //Events 
 
   addEvent(data:{}):Observable<any>{

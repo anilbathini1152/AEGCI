@@ -34,7 +34,7 @@ export interface eventuser{
     finishedAt?:Date,
     verifiedAt?:Date,
     url?:String,
-    safeUrl?:SafeUrl
+    file?:File
 }
 
 export interface issue{

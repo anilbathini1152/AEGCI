@@ -10,21 +10,36 @@ const Event = require("../mongo Models/event")
 const Issue = require("../mongo Models/issue")
 const EventRegistration = require("../mongo Models/eventuser")
 const multer = require('multer')
-const storage=multer.diskStorage({
-    destination: function(req, file, cb) {
-      cb(null, './src/app/components/authority/authority-events-registration/uploads');
-    },
-    filename: function(req, file, cb) {
-        
-      cb(null, req.query.loggedUser+Date.now().toString()+file.originalname);
-    }
-  });
-  const upload = multer({ storage: storage });
+const {uploadFile} =require("../s3")
 
-studentApiRoute.post('/upload', verifyToken,upload.single('file'),(req, res,next) => {
+const fs=require('fs')
+const util=require('util')
+const unLinkFile=util.promisify(fs.unlink)
+
+
+
+// const storage=multer.diskStorage({
+//     destination: function(req, file, cb) {
+//       cb(null, './src/app/components/authority/authority-events-registration/uploads');
+//     },
+//     filename: function(req, file, cb) {
+        
+//       cb(null, req.query.loggedUser+Date.now().toString()+file.originalname);
+//     }
+//   });
+//   const upload = multer({ storage: storage });
+
+const upload=multer({dest:"uploads/"})
+
+
+studentApiRoute.post('/upload', verifyToken,upload.single('file'),async (req, res,next) => {
     try{
-        console.log(req.file.filename)
-        res.send({data:req.file.filename,message:'File uploaded successfully!',success:true,code:200});
+        const file=req.file
+        const result=await uploadFile(file)
+        await unLinkFile(file.path)
+        console.log(result)
+
+        res.send({data:result.Key,message:'File uploaded successfully!',success:true,code:200});
     }
     catch(err){
         next(err)
@@ -37,7 +52,8 @@ studentApiRoute.put('/complete-task',verifyToken,async (req,res,next)=>{
         const path=req.body.path;
         const user=new mongoose.Types.ObjectId(req.body.user)
         const event=new mongoose.Types.ObjectId(req.body.event)
-        
+        console.log(path)
+        console.log(user,event)
         await EventRegistration.updateOne(
             {event,user},{
             $set: {

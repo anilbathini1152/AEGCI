@@ -97,7 +97,7 @@ const HumidityJob = new cron.CronJob('* * * * *',  function() {
       });
 });
 
-UltraSonicJob.start()
+// UltraSonicJob.start()
 // HumidityJob.start()
 
 

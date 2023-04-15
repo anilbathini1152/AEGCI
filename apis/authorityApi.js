@@ -9,8 +9,20 @@ const User = require("../mongo Models/user")
 const Event = require("../mongo Models/event")
 const Issue = require("../mongo Models/issue")
 const EventRegistration = require("../mongo Models/eventuser")
+const { getFileStream }=require("../s3")
 
 
+authorityApiRoute.get("/images/:key", (req,res)=>{
+    try{
+        const key=req.params.key;
+        console.log("ahsfkjshdkjahf++++++++++++++++++++++",key)
+        const readStream=getFileStream(key)
+        readStream.pipe(res)
+    }
+    catch(err){
+        res.send({message:"Error reading file",code:404,success:false})
+    }
+})
 //Events
 
 authorityApiRoute.get("/events", verifyToken, async (req, res, next) => {

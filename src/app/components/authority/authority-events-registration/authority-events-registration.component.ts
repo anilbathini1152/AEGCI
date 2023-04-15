@@ -44,10 +44,10 @@ export class AuthorityEventsRegistrationComponent implements OnInit {
     score: 0,
   }
 
-  eventRegTemplate: eventuser = {
+  eventRegTemplate:eventuser = {
     user: this.userTemplate,
     event: this.eventTemplate,
-    url:''
+    url:'',
   }
 
   emptyTemplate: eventuser = {
@@ -89,9 +89,6 @@ export class AuthorityEventsRegistrationComponent implements OnInit {
     this.service.getEventRegistration().subscribe(res => {
       if (res.success) {
         this.regs = res.data
-        // for(let reg of this.regs){
-        //   reg.url= this.img+(reg.url??"")
-        // }
       }
     })
   }
@@ -109,6 +106,7 @@ export class AuthorityEventsRegistrationComponent implements OnInit {
 
   }
   setImageToView(reg:any){
+    console.log(reg)
     this.selectedEventReg=reg
   }
 
