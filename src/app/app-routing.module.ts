@@ -33,19 +33,19 @@ const routes: Routes = [
     path: 'authority',
     component: AuthorityDashboardComponent,
     children: [
-      {path:'events',component:AuthorityEventsDashboardComponent},
-      {path:'event-registrations',component:AuthorityEventsRegistrationComponent},
-      {path:'issues',component:AuthorityIssueDashboardComponent}
+      {path:'event-details',component:AuthorityEventsDashboardComponent},
+      {path:'event-registration-details',component:AuthorityEventsRegistrationComponent},
+      {path:'issue-details',component:AuthorityIssueDashboardComponent}
     ]
   },
   {
     path: 'student',
     component: StudnetDashboardComponent,
     children: [
-      {path:'events',component:StudentEventsDashboardComponent},
-      {path:'event-registrations',component:StudentEventRegistrationsComponent},
-      {path:'issues',component:StudentIssuesDashboardComponent},
-      {path:'leader-board',component:StudentLeaderboardComponent}
+      {path:'event-details',component:StudentEventsDashboardComponent},
+      {path:'event-registration-details',component:StudentEventRegistrationsComponent},
+      {path:'issue-details',component:StudentIssuesDashboardComponent},
+      {path:'leader-board-details',component:StudentLeaderboardComponent}
     ]
   },
   { path: "**", redirectTo: "login" }

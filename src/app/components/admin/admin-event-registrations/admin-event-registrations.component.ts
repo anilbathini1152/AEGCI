@@ -107,12 +107,12 @@ export class AdminEventRegistrationsComponent implements OnInit {
     this.adminService.getEventRegistration().subscribe(res => {
       if (res.success) {
         this.regs = res.data
+        console.log(this.regs)
       }
     })
   }
 
   createEventReg(reg: any) {
-    console.log(reg)
     this.adminService.addEventRegistration(reg).subscribe(res => {
       this.eventRegTemplate = this.emptyTemplate
       if (res.success) {

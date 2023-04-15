@@ -1,3 +1,4 @@
+import {  SafeUrl } from '@angular/platform-browser';
 export interface user {
     _id?:String,
     firstName:string,
@@ -30,15 +31,17 @@ export interface eventuser{
     event:event,
     state?:String,
     enroledAt?:Date,
-    finshedAt?:Date,
-    verifiedAt?:Date
+    finishedAt?:Date,
+    verifiedAt?:Date,
+    url?:String,
+    safeUrl?:SafeUrl
 }
 
 export interface issue{
     _id?:String,
     description:String,
     authority:user,
-    raisedBy:String,
+    raisedBy:user,
     createdAt?:Date,
     priority:String,
     state?:String,

@@ -26,13 +26,13 @@ export class ErrorInterceptorService {
         if(res.body && !res.body.success){
           if(res.body.code === 1004 || res.body.code ==1002){
             this.toastService.error("Token Expired Relogin again to continue")
-            alert(req.body.message)
+            alert(res.body.message)
             this.userService.logout();
             this.router.navigate(['/login']);
           } 
           if(res.body.code === 404){
-            this.toastService.error(req.body.message)
-            alert(req.body.message)
+            this.toastService.error(res.body.message)
+            alert(res.body.message)
             this.router.navigate(['/login']);
 
           }   

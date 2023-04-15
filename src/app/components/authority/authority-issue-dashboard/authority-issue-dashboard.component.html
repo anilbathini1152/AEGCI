@@ -1,1 +1,175 @@
-<p>authority-issue-dashboard works!</p>
+<div class="nav-container">
+    <div></div>
+    <h3>Issues Dashboard</h3>
+    <div>
+    </div>
+</div>
+<div class="users-list">
+    <table class="user-table">
+        <tbody>
+            <tr>
+                <th class="sno">S no</th>
+                <th class="desc">Description</th>
+                <th class="type">Assigned Authority</th>
+                <th class="amount">Priority</th>
+                <th class="place">Raised by</th>
+                <th class="org">Issue State</th>
+                <th class="date">Created on</th>
+                <th class="points">Rectified on</th>
+            </tr>
+            <ng-container *ngFor="let issue of issues; let i=index;">
+                <tr>
+                    <td class="sno">{{i+1}}</td>
+                    <td class="desc">{{issue?.description}}</td>
+                    <td class="type">{{issue?.authority?.firstName}} {{issue?.authority?.lastName}}</td>
+                    <td class="amount">{{issue?.priority}}</td>
+                    <td class="place">{{issue?.raisedBy?.firstName}} {{issue?.raisedBy?.lastName}}</td>
+                    <td class="place">{{issue?.state}}</td>
+                    <td class="date">{{issue?.createdAt | date:"dd/MM/yy"}}</td>
+                    <td class="points">
+                        <div style="display: flex;" [ngStyle]="{'justify-content':(issue?.state==='RECTIFIED')?'center':'space-between'}">
+                            <div></div>
+                            <div>
+                                {{issue?.compleatedAt ? (issue?.compleatedAt|date:"dd/MM/yy"):"________"}}
+                            </div>
+                            <div class="icon" style="display:flex; flex-direction: row;" *ngIf="issue?.state!=='RECTIFIED'">
+                              <button mat-icon-button color="warn" (click)="rectifyIssue(issue)"  data-bs-toggle="modal" data-bs-target="#issueAssignModal"
+                                  style="display:flex; justify-content: center; align-items: center;">
+                                  <mat-icon>done</mat-icon>
+                              </button>
+                                <!-- <button mat-icon-button color="primary" (click)="setIssueDetailstoedit(issue)"  data-bs-toggle="modal" data-bs-target="#issueUpdateModal" 
+                                    style="display:flex; justify-content: center; align-items: center;">
+                                    <mat-icon>clear</mat-icon>
+                                </button> -->
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+  
+  <!-- Create User Modal -->
+  <!-- <div class="modal fade" id="issuecreateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Issue</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="overflow-y: auto;">
+            <div style="margin: 10px 0; height: 143px;">
+                <div class="form-container" style="display:flex; flex-direction: column;">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Issue Description</mat-label>
+                        <input matInput placeholder="" [(ngModel)]="issueTemplate.description" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Select Issue Priority</mat-label>
+                        <select matNativeControl [(ngModel)]="issueTemplate.priority" name="food">
+                          <option *ngFor="let priority of prioritys" [value]="priority.name">
+                            {{priority.name}}
+                          </option>
+                        </select>
+                      </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="createIssue(issueTemplate)" data-bs-dismiss="modal">Create</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+<!-- Update User Model -->
+  <!-- <div class="modal fade" id="issueUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Issue</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="overflow-y: auto;">
+            <div style="margin: 10px 0; height: 143px;">
+                <div class="form-container" style="display:flex; flex-direction: column;">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Issue Description</mat-label>
+                    <input matInput placeholder="" [(ngModel)]="issueTemplate.description" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>Select Issue Priority</mat-label>
+                  <select matNativeControl [(ngModel)]="issueTemplate.priority" name="food">
+                    <option *ngFor="let priority of prioritys" [value]="priority.name">
+                      {{priority.name}}
+                    </option>
+                  </select>
+                </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="editIssue(issueTemplate)" data-bs-dismiss="modal">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Assign Issue Modal -->
+  <!-- <div class="modal fade" id="issueAssignModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Issue</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="overflow-y: auto;">
+            <div style="margin: 10px 0; height: 143px;">
+                <div class="form-container" style="display:flex; flex-direction: column;">
+                <mat-form-field appearance="fill">
+                  <mat-label>Select Authority</mat-label>
+                  <select matNativeControl [(ngModel)]="issueTemplate.authority" name="food">
+                    <option *ngFor="let user of authorityUsers" [value]="user._id">
+                      {{user.firstName}} {{user.lastName}}
+                    </option>
+                  </select>
+                </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="editIssue(issueTemplate)" data-bs-dismiss="modal">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- delete User Modal -->
+  <!-- <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are You sure you want to delete the Issue {{issueTemplate.description}}..?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-warning" (click)="deleteIssue(issueTemplate)" data-bs-dismiss="modal">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+

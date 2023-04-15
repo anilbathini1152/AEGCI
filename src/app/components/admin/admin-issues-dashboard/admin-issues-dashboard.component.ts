@@ -41,14 +41,14 @@ export class AdminIssuesDashboardComponent implements OnInit {
   issueTemplate:issue={
     description:"",
     authority:this.userTemplate,
-    raisedBy:"",
+    raisedBy:this.userTemplate,
     priority:"",
 }
 
   emptyTemplate:issue={
     description:"",
     authority:this.userTemplate,
-    raisedBy:"",
+    raisedBy:this.userTemplate,
     priority:"",
 }
 
@@ -103,7 +103,7 @@ export class AdminIssuesDashboardComponent implements OnInit {
 
   createIssue(issue:any){
     issue.authority="641fcf18432e60cf91a4a3b4"
-    issue.raisedBy=this.currentUser.role
+    issue.raisedBy=this.currentUser._id
     console.log(issue)
     this.adminService.addIssue(issue).subscribe(res=>{
       this.issueTemplate=this.emptyTemplate

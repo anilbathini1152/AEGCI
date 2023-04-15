@@ -26,6 +26,9 @@ const eventUserSchema=new mongoose.Schema({
     },
     verifiedAt:{
         type:Date,
+    },
+    url:{
+        type:String
     }
 })
 

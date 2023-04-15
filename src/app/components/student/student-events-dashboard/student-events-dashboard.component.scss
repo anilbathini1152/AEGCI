@@ -1,0 +1,19 @@
+.nav-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 8vh;
+    padding-right: 5px;
+    background-color: #e3f2fd;
+}
+
+.users-list {
+    display: flex;
+    flex-wrap: wrap;
+    height: 86vh;
+    .events-card {
+        max-width: 400px;
+    }
+
+}

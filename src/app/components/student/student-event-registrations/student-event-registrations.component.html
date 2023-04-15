@@ -1,1 +1,78 @@
-<p>student-event-registrations works!</p>
+<div class="nav-container">
+    <div></div>
+    <h3>Event Registrations Dashboard</h3>
+    <div>
+        
+    </div>
+</div>
+<div class="users-list">
+    <table class="user-table">
+        <tbody>
+            <tr>
+                <th class="sno">S no</th>
+                <th class="type">Event Name</th>
+                <th class="amount">State</th>
+                <th class="place">Enrolled on</th>
+                <th class="org">Finished on</th>
+                <th class="date">Verified on</th>
+            </tr>
+            <ng-container *ngFor="let reg of regs; let i=index;">
+                <tr>
+                    <td class="sno">{{i+1}}</td>
+                    <td class="type">{{reg?.event?.name}} </td>
+                    <td class="amount">{{reg?.state}}</td>
+                    <td class="place">
+                        <div>
+                            {{reg?.enroledAt ? (reg?.enroledAt | date:"dd/MM/yy"):"__________"}}
+                        </div>
+                    </td>
+                    <td class="place">
+                        <div>
+                            {{reg?.finishedAt ? (reg?.finishedAt | date:"dd/MM/yy"):"___________"}}
+                        </div>
+                    </td>
+                    <td class="points">
+                        <div style="display: flex;" [ngStyle]="{'justify-content':(reg?.state!=='Under Process')?'center':'space-between'}">
+                            <div></div>
+                            <div>
+                                {{reg?.verifiedAt?(reg?.verifiedAt | date:"dd/MM/yy"):"__________"}}
+                            </div>
+                            <div class="icon" style="display:flex; flex-direction: row;" *ngIf="reg?.state==='Under Process'">
+                                <input type="file" (change)="onFileSelected($event)" style="display: none;" id="upload" name="upload"/>
+                                <label for="upload">
+                                    <mat-icon>add_photo_alternate</mat-icon>
+                                </label>
+                                 <button mat-icon-button color="primary" (click)="onUpload(reg)" *ngIf="selectedFile"
+                                    style="display:flex; justify-content: center; align-items: center;">
+                                    <mat-icon>done</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- delete User Modal -->
+<!-- <div class="modal fade" id="fileUploadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="file" (change)="onFileSelected($event)" />
+                <button (click)="onUpload()">Upload</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-warning" (click)="completeEvent(eventRegTemplate)"
+                    data-bs-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div> -->

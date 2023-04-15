@@ -32,6 +32,8 @@ export class UserServiceService {
     return this.http.post("/login",body);
   }
 
+  
+
   logout():any{
     localStorage.clear();
     alert("Logged Out SuccessFully")

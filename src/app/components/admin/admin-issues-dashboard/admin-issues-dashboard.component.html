@@ -27,7 +27,7 @@
                     <td class="desc">{{issue?.description}}</td>
                     <td class="type">{{issue?.authority?.firstName}} {{issue?.authority?.lastName}}</td>
                     <td class="amount">{{issue?.priority}}</td>
-                    <td class="place">{{issue?.raisedBy}}</td>
+                    <td class="place">{{issue?.raisedBy?.firstName}} {{issue?.raisedBy?.lastName}}</td>
                     <td class="place">{{issue?.state}}</td>
                     <td class="date">{{issue?.createdAt | date:"dd/MM/yy"}}</td>
                     <td class="points">

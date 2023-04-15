@@ -11,7 +11,9 @@ const issueSchema=new mongoose.Schema({
         required:true
     },
     raisedBy:{
-        type:String,
+        type:mongoose.SchemaTypes.ObjectId,
+        ref:"User",
+        required:true
     },
     createdAt:{
         type:Date,

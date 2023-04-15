@@ -1,1 +1,27 @@
-<p>student-leaderboard works!</p>
+<div class="nav-container">
+    <div></div>
+    <h3>Leader Board</h3>
+    <div>
+    </div>
+</div>
+<div class="users-list">
+    <table class="user-table">
+        <tbody>
+            <tr>
+                <th class="sno">S no</th>
+                <th class="desc">Name</th>
+                <th class="type">Gender</th>
+                <th class="amount">Score</th>
+            </tr>
+            <ng-container *ngFor="let user of users; let i=index;">
+                <tr>
+                    <td class="sno">{{i+1}}</td>
+                    <td class="type">{{user?.firstName}} {{user?.lastName}}</td>
+                    <td class="amount">{{user?.gender}}</td>
+                    <td class="place">{{user?.score}}</td>
+                    
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>

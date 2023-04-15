@@ -1,1 +1,47 @@
-<p>student-events-dashboard works!</p>
+<div class="nav-container">
+    <div></div>
+    <h3>Events Dashboard</h3>
+    <div>
+    </div>
+</div>
+<div class="users-list">
+  <ng-container *ngFor="let event of events">
+    <mat-card class="event-card" style="    max-height: 360px;
+    min-width: 300px;
+    max-width: 300px;
+    min-height: 370px;
+    background-color: #bdadfb;
+    margin: 35px;">
+      <mat-card-header>
+        <mat-card-title>{{event.name}}</mat-card-title>
+        <mat-card-subtitle>{{event?.type}} </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <h6>Description:</h6><p>{{event?.description}}</p>  
+        <div style="display: flex;">
+          <h6>Place:</h6><p>{{event?.place}}</p>
+        </div>
+        <div style="display: flex;">
+          <h6>Date:</h6><p>{{event?.date | date:"dd/MM/yy"}}</p>
+        </div>
+        <div style="display: flex;">
+          <h6>Entry Fee:</h6><p>{{event?.amount}}</p>
+        </div>
+        <div style="display: flex;">
+          <h6>Points Awarded:</h6><p>{{event?.score}}</p>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button style="background-color: #00ff53;" (click)="registerEvent(event)">Register</button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+</div>
+
+
+
+
+
+
+  
+ 
