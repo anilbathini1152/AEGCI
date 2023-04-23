@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminServiceService {
 
-  basePath="/admin"
+  basePath= environment.apiUrl + "/admin"
   constructor(
     private router:Router,
     private http: HttpClient,

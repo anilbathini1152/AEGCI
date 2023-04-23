@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ObjectIdExtended } from 'bson';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -14,6 +15,8 @@ export class UserServiceService {
     private http: HttpClient,
     private router: Router,
     ) { }
+    
+    apiUrl=environment.apiUrl
 
   authenticate():any{
     let userObj=localStorage.getItem('user');
@@ -25,11 +28,11 @@ export class UserServiceService {
   }
 
   register(body:any):Observable<any>{
-    return this.http.post("/register",body);
+    return this.http.post(this.apiUrl+"/register",body);
   }
 
   login(body:any):Observable<any>{
-    return this.http.post("/login",body);
+    return this.http.post(this.apiUrl+"/login",body);
   }
 
   

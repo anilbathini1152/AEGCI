@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorityService {
   
-  basePath="/authority"
+  basePath= environment.apiUrl + "/authority"
   constructor(
     private router:Router,
     private http: HttpClient,

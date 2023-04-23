@@ -20,7 +20,6 @@ function uploadFile(file){
         Body:fileStream,
         Key:file.filename
     }
-    console.log("akjfhkaj")
     return s3.upload(uploadParams).promise()
 }
 

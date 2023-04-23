@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { AppRoutingModule } from './app-routing.module';
@@ -66,6 +67,7 @@ import { StudentLeaderboardComponent } from './components/student/student-leader
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    BrowserAnimationsModule,
     ToastrModule.forRoot({
       maxOpened: 3,
       autoDismiss: true,
