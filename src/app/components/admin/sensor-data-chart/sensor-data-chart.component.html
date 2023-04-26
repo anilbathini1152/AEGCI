@@ -1,0 +1,37 @@
+<div class="nav-container">
+    <div></div>
+    <h3>Sensor Statistics Dashboard</h3>
+    <div>
+        <mat-form-field appearance="fill" style="margin-right: 10px;">
+            <mat-label>Select Sensor</mat-label>
+            <mat-select  [(ngModel)]="selectedSensor" (ngModelChange)="onSensorSelect()">
+              <mat-option *ngFor="let data of sensors" [value]="data">
+                {{data.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="selectedSensor">
+            <mat-label>Select Date</mat-label>
+            <mat-select [(ngModel)]="selectedDate" (ngModelChange)="onDateSelect()">
+              <mat-option *ngFor="let data of formattedData" [value]="data">
+                {{data.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+</div>
+<div *ngIf="selectedDate && selectedSensor" class="chart-wrapper">
+    <ngx-charts-bar-vertical
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="chartData.series"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxisLabel]="xAxisLabel"
+      [gradient]="gradient"
+      [yAxisLabel]="yAxisLabel">
+    </ngx-charts-bar-vertical>
+</div>

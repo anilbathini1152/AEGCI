@@ -1,0 +1,22 @@
+.nav-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center ;
+    height: 8vh;
+    padding-right: 5px;
+    background-color: #e3f2fd;
+}
+
+.chart-wrapper{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+:host{
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 65px);
+}

@@ -8,7 +8,6 @@ const User=require('../mongo Models/user')
 
 
 sharedApiRoute.post("/login", async (req, res,next) => {
-    console.log("Helloooooooooo")
     try{
         data = await User.findOne({ userName: req.body.username })
         if (data === null) {

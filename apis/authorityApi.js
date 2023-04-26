@@ -15,7 +15,6 @@ const { getFileStream }=require("../s3")
 authorityApiRoute.get("/images/:key", (req,res)=>{
     try{
         const key=req.params.key;
-        console.log("ahsfkjshdkjahf++++++++++++++++++++++",key)
         const readStream=getFileStream(key)
         readStream.pipe(res)
     }

@@ -33,6 +33,8 @@ import { StudentEventsDashboardComponent } from './components/student/student-ev
 import { StudentEventRegistrationsComponent } from './components/student/student-event-registrations/student-event-registrations.component';
 import { StudentIssuesDashboardComponent } from './components/student/student-issues-dashboard/student-issues-dashboard.component';
 import { StudentLeaderboardComponent } from './components/student/student-leaderboard/student-leaderboard.component';
+import { SensorDataChartComponent } from './components/admin/sensor-data-chart/sensor-data-chart.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +54,7 @@ import { StudentLeaderboardComponent } from './components/student/student-leader
     StudentEventRegistrationsComponent,
     StudentIssuesDashboardComponent,
     StudentLeaderboardComponent,
+    SensorDataChartComponent,
     
   ],
   imports: [
@@ -74,6 +77,7 @@ import { StudentLeaderboardComponent } from './components/student/student-leader
       closeButton: false
     }),
     MatRadioModule,
+    NgxChartsModule
   ], 
   providers: [{
     provide: HTTP_INTERCEPTORS,

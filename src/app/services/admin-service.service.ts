@@ -95,4 +95,9 @@ export class AdminServiceService {
   getStudentUsers():Observable<any>{
     return this.http.get(this.basePath+"/get-student-users");
   }
+
+  //sensorData
+  getSensorData(params:any):Observable<any>{
+    return this.http.get(this.basePath+"/sensor-chart-data",{params:{type:params}})
+  }
 } 

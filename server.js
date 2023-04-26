@@ -139,7 +139,7 @@ const humidityJob = new cron.CronJob('* * * * *',  function() {
     });
 });
 
-humidityJob.start()
+// humidityJob.start()
 
 
 //Temperature Cron Job
@@ -175,11 +175,11 @@ const temperatureJob = new cron.CronJob('* * * * *',  function() {
     });
 });
 
-temperatureJob.start()
+// temperatureJob.start()
 
 
 
-//Temperature Cron Job
+//ultrasonic Cron Job
 const ultraSonicJob = new cron.CronJob('* * * * *',  function() {
     const workbook = new ExcelJS.Workbook();
     workbook.xlsx.readFile(ultraSonicPath)
@@ -205,7 +205,7 @@ const ultraSonicJob = new cron.CronJob('* * * * *',  function() {
     });
 });
 
-ultraSonicJob.start()
+// ultraSonicJob.start()
 
 
 
@@ -235,7 +235,7 @@ const { last } = require("rxjs");
 app.use("/sensor",sensorApiRoute);
 
 //For Other routes other than the given  routes
-app.use('/*',proxy('http://localhost:'+port+'/*'))
+app.use('/*',proxy('http://'+IP+':'+port+'/*'))
 
 //Error handling route
 app.use((err,req,res,next)=>{

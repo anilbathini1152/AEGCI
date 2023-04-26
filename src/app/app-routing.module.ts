@@ -16,6 +16,7 @@ import { StudentLeaderboardComponent } from './components/student/student-leader
 import { AuthorityEventsDashboardComponent } from './components/authority/authority-events-dashboard/authority-events-dashboard.component';
 import { AuthorityEventsRegistrationComponent } from './components/authority/authority-events-registration/authority-events-registration.component';
 import { StudentIssuesDashboardComponent } from './components/student/student-issues-dashboard/student-issues-dashboard.component';
+import { SensorDataChartComponent } from './components/admin/sensor-data-chart/sensor-data-chart.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -26,7 +27,8 @@ const routes: Routes = [
       { path: 'user-details', component: AdminUsersDashboardComponent },
       { path: 'event-details', component: AdminEventsDashboardComponent },
       { path: 'issue-details', component: AdminIssuesDashboardComponent },
-      { path: "evnt-regs", component: AdminEventRegistrationsComponent }
+      { path: "evnt-regs", component: AdminEventRegistrationsComponent },
+      { path: "charts", component:SensorDataChartComponent}
     ]
   },
   {

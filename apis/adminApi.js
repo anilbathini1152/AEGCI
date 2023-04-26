@@ -9,6 +9,9 @@ const User = require("../mongo Models/user")
 const Event = require("../mongo Models/event")
 const Issue = require("../mongo Models/issue")
 const EventRegistration = require("../mongo Models/eventuser")
+const ExcelJS = require('exceljs');
+const path=require("path")
+
 
 //User Routes
 adminApiRoute.get("/users", verifyToken, async (req, res, next) => {
@@ -285,6 +288,123 @@ adminApiRoute.get("/get-student-users", verifyToken, async (req, res, next) => {
         res.send({ data: users, message: 'success', code: 200, success: true })
     }
     catch (err) {
+        next(err)
+    }
+})
+
+adminApiRoute.get("/sensor-chart-data",verifyToken,async(req,res,next)=>{
+    try{
+        const dhtPath = path.join(__dirname, '/excelSheets', 'dht.xlsx');
+        const ultraSonicPath = path.join(__dirname, '/excelSheets', 'ultraSonic.xlsx');
+        const type=req.query.type
+        //For dth data
+        if(type==="dth"){
+            const dthworkbook = new ExcelJS.Workbook();
+            dthworkbook.xlsx.readFile(dhtPath).then(async () => {
+                const worksheet = await dthworkbook.getWorksheet(1);
+                const rows = [];
+                worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+                    const rowData = {};
+                    row.eachCell({ includeEmpty: false }, (cell, colNumber) => {
+                        rowData[`column_${colNumber}`] = cell.value;
+                    });
+                    rows.push(rowData);
+                });
+                const result = {};
+    
+                rows.forEach((item) => {
+                const date = item.column_1;
+                const time = item.column_2;
+                const hour=new Date(date.toString()+" "+time.toString()).getHours()
+                const value = [item.column_3, item.column_4];
+                
+                if (!result[date]) {
+                    result[date] = {};
+                }
+                
+                if (!result[date][hour]) {
+                    result[date][hour] = {
+                    count: 0,
+                    sum: [0, 0]
+                    };
+                }
+                
+                result[date][hour].count++;
+                result[date][hour].sum[0] += value[0];
+                result[date][hour].sum[1] += value[1];
+                // result[date][time]=date.toString()+" "+time.toString()
+                });
+    
+                // Calculate the averages for each hour
+                Object.keys(result).forEach((date) => {
+                Object.keys(result[date]).forEach((hour) => {
+                    const count = result[date][hour].count;
+                    const sum = result[date][hour].sum;
+                    const avg = [sum[0] / count, sum[1] / count];
+                    result[date][hour] = avg;
+                });
+                });
+                res.send({ data: result, message: 'success', code: 200, success: true })
+
+            
+            })
+        }else{
+            //For ultra data
+            const ultraworkbook = new ExcelJS.Workbook();
+            ultraworkbook.xlsx.readFile(ultraSonicPath).then(async ()=>{
+                const worksheet = ultraworkbook.getWorksheet(1);
+                const rows = [];
+                worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+                    const rowData = {};
+                    row.eachCell({ includeEmpty: false }, (cell, colNumber) => {
+                        rowData[`column_${colNumber}`] = cell.value;
+                    });
+                    rows.push(rowData);
+                });
+                const result = {};
+    
+                rows.forEach((item) => {
+                    const date = item['column_1'];
+                    const time = item['column_2'];
+                    const hour=new Date(date.toString()+" "+time.toString()).getHours()
+                    const value = item['column_3'];
+                    
+                    if (!result[date]) {
+                      result[date] = {};
+                    }
+                    
+                    if (!result[date][hour]) {
+                      result[date][hour] = {
+                        count: 0,
+                        sum: 0
+                      };
+                    }
+                    
+                    result[date][hour].count++;
+                    result[date][hour].sum += value;
+                  });
+                  
+                  // Calculate the averages for each hour for each date
+                  Object.keys(result).forEach((date) => {
+                    Object.keys(result[date]).forEach((hour) => {
+                      const count = result[date][hour].count;
+                      const sum = result[date][hour].sum;
+                      const avg = sum / count;
+                      result[date][hour] = avg;
+                    });
+                  });
+                  
+                  res.send({ data: result, message: 'success', code: 200, success: true })
+
+    
+            })
+        }
+
+
+        
+    }
+    catch(err){
+        console.log(err)
         next(err)
     }
 })
